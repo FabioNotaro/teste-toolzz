@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
-use App\Http\Resources\SeriesShowResource;
+use App\Http\Resources\Series\SeriesShowResource;
 use App\Models\Series;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class SeriesController extends Controller{
         $data  = $request->all();
         $serie = Series::create($data);
         
-        return new SeriesShowResource($serie);
+        return SeriesShowResource::make($serie);
 
     }
 
@@ -36,10 +36,10 @@ class SeriesController extends Controller{
 
         $seriesModel = Series::find($series);
         if ($seriesModel === null) {
-            return response()->json(['message' => 'Series not found'], 404);
+            return response()->json(['message' => 'Serie not found'], 404);
         }
 
-        return new SeriesShowResource($seriesModel);
+        return SeriesShowResource::make($seriesModel);
 
     }
 

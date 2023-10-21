@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\Users\UserCreateResource;
 
 class UsersController {
 
@@ -16,9 +17,10 @@ class UsersController {
         $registeredEmail  = User::where('email', $data['email'])->first();
 
         if($registeredEmail){
-            return response()->json(['message' => 'Email já cadastrado!']);
-        }elseif(User::create($data)){
-            return response()->json(['message' => 'Usuario cadastrado com sucesso!'], 201);
+            return response()->json(['message' => 'E-mail already registered!']);
+        }else{
+            $user = User::create($data);
+            return UserCreateResource::make($user)->additional(['message' => 'User successfully registered!'], 201);
         };
 
     }
