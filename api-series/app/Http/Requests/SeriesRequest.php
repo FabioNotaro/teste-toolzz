@@ -11,8 +11,7 @@ class SeriesRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,8 +20,7 @@ class SeriesRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'name' => ['required', 'min:2'],
             'seasons_qty' => ['required'],
